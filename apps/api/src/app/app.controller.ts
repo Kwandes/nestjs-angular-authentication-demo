@@ -1,4 +1,4 @@
-import { Message } from '@nestjs-angular-authentication-demo/api-interfaces';
+import { Message } from '@nestjs-angular-authentication-demo/interfaces';
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';

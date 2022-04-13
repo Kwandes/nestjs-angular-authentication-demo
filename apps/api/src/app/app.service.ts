@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Message } from '@nestjs-angular-authentication-demo/api-interfaces';
+import { Message } from '@nestjs-angular-authentication-demo/interfaces';
 
 @Injectable()
 export class AppService {

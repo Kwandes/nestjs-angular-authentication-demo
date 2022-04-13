@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nestjs-angular-authentication-demo/api-interfaces": [
-        "libs/api-interfaces/src/index.ts"
+      "@nestjs-angular-authentication-demo/interfaces": [
+        "libs/interfaces/src/index.ts"
       ]
     }
   },

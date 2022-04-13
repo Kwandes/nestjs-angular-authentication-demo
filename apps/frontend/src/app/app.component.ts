@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@nestjs-angular-authentication-demo/api-interfaces';
+import { Message } from '@nestjs-angular-authentication-demo/interfaces';
 
 @Component({
   selector: 'nestjs-angular-authentication-demo-root',

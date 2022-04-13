@@ -1,4 +1,4 @@
-import { IUser } from '@nestjs-angular-authentication-demo/api-interfaces';
+import { IUser } from '@nestjs-angular-authentication-demo/interfaces';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Base } from './base.entity';
 
