@@ -10,10 +10,12 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
+import { Role } from '../../../../libs/interfaces/src/lib/role.enum';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
+import { Roles } from './auth/roles.decorator';
 import { UsersService } from './users/users.service';
 
 @Controller()
@@ -33,6 +35,20 @@ export class AppController {
   @Get('protected')
   getConfidentialData(): Message {
     return { message: 'confidential data' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('user')
+  @Roles(Role.User)
+  getUserData(): Message {
+    return { message: 'User data' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
+  @Get('admin')
+  getAdminData(): Message {
+    return { message: 'Admin data' };
   }
 
   @UseGuards(LocalAuthGuard)

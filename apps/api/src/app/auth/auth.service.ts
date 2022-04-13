@@ -13,7 +13,7 @@ import { UsersService } from '../users/users.service';
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private readonly jwtService: JwtService
   ) {}
 
   /**
@@ -41,6 +41,7 @@ export class AuthService {
     const payload = { email: user.email, sub: user.userId };
     return {
       accessToken: this.jwtService.sign(payload),
+      role: user.role,
     };
   }
 

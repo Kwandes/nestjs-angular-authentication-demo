@@ -1,3 +1,5 @@
+import { Role } from './role.enum';
+
 export interface LoginRequestDto {
   email: string;
   password: string;
@@ -5,6 +7,7 @@ export interface LoginRequestDto {
 
 export interface LoginResponse {
   accessToken: string;
+  role: Role;
 }
 
 export interface SignupRequestDto {
@@ -14,4 +17,5 @@ export interface SignupRequestDto {
 
 export interface SignupResponse {
   accessToken: string;
+  role: Role;
 }
