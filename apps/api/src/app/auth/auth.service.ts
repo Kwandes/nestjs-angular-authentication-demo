@@ -16,6 +16,11 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
+  /**
+   * Verify that the the login attempt uses valid user credentials.
+   * @param loginRequestDto user credentials.
+   * @returns validated user information or null.
+   */
   async validateUser(loginRequestDto): Promise<any> {
     const { email, password } = loginRequestDto;
     const user = await this.usersService.findOne(email);
@@ -26,6 +31,12 @@ export class AuthService {
     return null;
   }
 
+  /**
+   * Get a JWT access token for the given user \
+   * This method is called internally by the authentication library.
+   * @param user user for which the token gets generated.
+   * @returns generated JWT.
+   */
   async login(user: IUser): Promise<LoginResponse> {
     const payload = { email: user.email, sub: user.userId };
     return {
@@ -33,6 +44,11 @@ export class AuthService {
     };
   }
 
+  /**
+   * Register a new user and hash their password.
+   * @param signupRequestDto signup information.
+   * @returns access token for the registered user.
+   */
   async signup(signupRequestDto: SignupRequestDto): Promise<SignupResponse> {
     const { email, password } = signupRequestDto;
     const hashedPassword = await this.encodePassword(password);
@@ -44,9 +60,9 @@ export class AuthService {
   }
 
   /**
-   *
-   * @param password
-   * @returns
+   * Hashes and salts the plaintext password using bcrypt.
+   * @param password plaitext password to hash.
+   * @returns encoded password.
    */
   async encodePassword(password: string): Promise<string> {
     const saltOrRounds = 10;
@@ -54,10 +70,10 @@ export class AuthService {
   }
 
   /**
-   *
-   * @param password
-   * @param hash
-   * @returns
+   * Compares the plainttest password and a hash to verify that they match.
+   * @param password plaintext password.
+   * @param hash password hashed with bcrypt.
+   * @returns whether the strings match.
    */
   async compareHashes(password, hash): Promise<boolean> {
     return await bcrypt.compare(password, hash);
