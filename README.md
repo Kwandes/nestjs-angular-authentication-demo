@@ -1,5 +1,3 @@
-
-
 # NestjsAngularAuthenticationDemo
 
 This project was generated using [Nx](https://nx.dev).
@@ -87,10 +85,13 @@ Run `nx graph` to see a diagram of the dependencies of your projects.
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
 
+## Database
 
+The api requires connection to a Posgres database. You can run one locally with
 
-
-
+```docker
+docker run --name postgres -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=nest_auth_demo -p 5432:5432 -d postgres
+```
 
 ## ☁ Nx Cloud
 
