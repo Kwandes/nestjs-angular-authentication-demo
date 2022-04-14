@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { Message } from '@nestjs-angular-authentication-demo/interfaces';
+import { environment as env } from '../environments/environment';
 
 @Component({
   selector: 'nestjs-angular-authentication-demo-root',
@@ -8,6 +9,6 @@ import { Message } from '@nestjs-angular-authentication-demo/interfaces';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
+  hello$ = this.http.get<Message>(`${env.apiUrl}/api/hello`);
   constructor(private http: HttpClient) {}
 }
