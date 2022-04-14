@@ -1,7 +1,23 @@
+<div *ngIf="isLoggedIn" class="wrapper">
+  <h1>You're already logged in. Log out first before you try to log in :)</h1>
+  <button class="fancy-btn" style="width: 100%" routerLink="/home">
+    Go Home
+  </button>
+  <button
+    class="fancy-btn"
+    style="width: 100%"
+    *ngIf="getAccessInfo()"
+    [routerLink]="getAccessInfo()?.role === 'user' ? '/user' : '/admin'"
+  >
+    Go to my role confidential info page
+  </button>
+</div>
+
 <form
+  *ngIf="!isLoggedIn"
   (ngSubmit)="onSubmit()"
   name="loginForm"
-  id="wrapper"
+  class="wrapper"
   [formGroup]="loginForm"
 >
   <h1>Login</h1>

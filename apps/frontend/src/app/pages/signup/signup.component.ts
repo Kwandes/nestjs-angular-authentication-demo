@@ -5,6 +5,10 @@ import {
   ILoginResponse,
   Role,
 } from '@nestjs-angular-authentication-demo/interfaces';
+import {
+  LocalStorageService,
+  LocalStorageVars,
+} from '@nestjs-angular-authentication-demo/local-storage';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
@@ -26,8 +30,12 @@ export class SignupComponent implements OnInit {
    *  The Role enum values broken into strings to be shown in the select element.
    */
   roleArray: string[];
+  isLoggedIn = false;
 
-  constructor(private readonly authService: AuthService) {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly localStorageService: LocalStorageService
+  ) {
     this.roleArray = Object.keys(Role);
   }
 
@@ -44,6 +52,10 @@ export class SignupComponent implements OnInit {
       ]),
       role: new FormControl(Role.user),
     });
+    this.isLoggedIn =
+      this.localStorageService.getItem<ILoginResponse>(
+        LocalStorageVars.accessTokenInfo
+      )?.value != null;
   }
 
   /**

@@ -2,6 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ILoginResponse } from '@nestjs-angular-authentication-demo/interfaces';
+import {
+  LocalStorageService,
+  LocalStorageVars,
+} from '@nestjs-angular-authentication-demo/local-storage';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
@@ -19,8 +23,12 @@ export class LoginComponent implements OnInit {
    * Is set to true when certain actions like pressing the login button shouldn't be possible due to data loading / waiting for request result.
    */
   isLoading = false;
+  isLoggedIn = false;
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly localStorageService: LocalStorageService
+  ) {}
 
   /**
    * Initialize the login form
@@ -34,6 +42,10 @@ export class LoginComponent implements OnInit {
         Validators.maxLength(100),
       ]),
     });
+    this.isLoggedIn =
+      this.localStorageService.getItem<ILoginResponse>(
+        LocalStorageVars.accessTokenInfo
+      )?.value != null;
   }
 
   /**
