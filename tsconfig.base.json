@@ -17,6 +17,9 @@
     "paths": {
       "@nestjs-angular-authentication-demo/interfaces": [
         "libs/interfaces/src/index.ts"
+      ],
+      "@nestjs-angular-authentication-demo/local-storage": [
+        "libs/local-storage/src/index.ts"
       ]
     }
   },

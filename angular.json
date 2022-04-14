@@ -4,6 +4,7 @@
     "api": "apps/api",
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
-    "interfaces": "libs/interfaces"
+    "interfaces": "libs/interfaces",
+    "local-storage": "libs/local-storage"
   }
 }

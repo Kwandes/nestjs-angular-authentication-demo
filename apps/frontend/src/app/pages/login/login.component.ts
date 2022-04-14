@@ -1,5 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  LoginResponse,
+  Role,
+} from '@nestjs-angular-authentication-demo/interfaces';
+import {
+  LocalStorageService,
+  LocalStorageVars,
+} from '@nestjs-angular-authentication-demo/local-storage';
 
 @Component({
   selector: 'nestjs-angular-authentication-demo-login',
@@ -16,6 +24,8 @@ export class LoginComponent implements OnInit {
    * Is set to true when certain actions like pressing the login button shouldn't be possible due to data loading / waiting for request result.
    */
   isLoading = false;
+
+  constructor(private readonly localStorageService: LocalStorageService) {}
 
   /**
    * Initialize the login form
@@ -46,6 +56,10 @@ export class LoginComponent implements OnInit {
     // temp timeout to imitiate an API call
     await new Promise((f) => setTimeout(f, 1000));
     this.isLoading = false;
+    this.localStorageService.setItem<LoginResponse>(
+      LocalStorageVars.accessTokenInfo,
+      { accessToken: email + ':' + password, role: Role.User }
+    );
     this.alert = {
       message: `Logged in as ${email}:${password}`,
       type: 'info',
