@@ -5,7 +5,7 @@ import {
   IUser,
   Role,
 } from '@nestjs-angular-authentication-demo/interfaces';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
@@ -56,6 +56,11 @@ export class AuthService {
     role: Role
   ): Promise<ISignupResponse> {
     const { email, password } = signupRequestDto;
+    if ((await this.usersService.findOne(email)) !== null) {
+      throw new BadRequestException(
+        `This email is already taken. Try adding some random digits to it 👍`
+      );
+    }
     const hashedPassword = await this.encodePassword(password);
     const user = await this.usersService.create(
       {
