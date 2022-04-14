@@ -1,8 +1,9 @@
 import {
-  IUser,
   ILoginResponse,
   ISignupRequestDto,
   ISignupResponse,
+  IUser,
+  Role,
 } from '@nestjs-angular-authentication-demo/interfaces';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -50,13 +51,19 @@ export class AuthService {
    * @param signupRequestDto signup information.
    * @returns access token for the registered user.
    */
-  async signup(signupRequestDto: ISignupRequestDto): Promise<ISignupResponse> {
+  async signup(
+    signupRequestDto: ISignupRequestDto,
+    role: Role
+  ): Promise<ISignupResponse> {
     const { email, password } = signupRequestDto;
     const hashedPassword = await this.encodePassword(password);
-    const user = await this.usersService.create({
-      email: email,
-      password: hashedPassword,
-    });
+    const user = await this.usersService.create(
+      {
+        email: email,
+        password: hashedPassword,
+      },
+      role
+    );
     return await this.login(user);
   }
 

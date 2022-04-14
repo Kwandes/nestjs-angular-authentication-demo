@@ -17,13 +17,13 @@ const routes: Routes = [
     path: 'user',
     component: UserComponent,
     canActivate: [AuthGuard],
-    data: { role: Role.User },
+    data: { role: Role.user },
   },
   {
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
-    data: { role: Role.Admin },
+    data: { role: Role.admin },
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests

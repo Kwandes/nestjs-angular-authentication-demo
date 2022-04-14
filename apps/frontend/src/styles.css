@@ -43,3 +43,19 @@ a {
 }
 
 /* ---------------- End of fancy button styling ---------------- */
+
+/* ---------------- Fancy dropdown select styling ---------------- */
+
+.fancy-select {
+  color: #42d6ca;
+  font-size: medium;
+  width: 50%;
+  text-align: center;
+  text-transform: capitalize;
+  padding: 5px;
+  margin-bottom: 1vh;
+  background-color: rgba(128, 0, 128, 0.7);
+  border: 2px purple solid;
+  border-radius: 4px;
+}
+/* ---------------- End of fancy dropdown select styling ---------------- */

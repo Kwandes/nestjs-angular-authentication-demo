@@ -1,13 +1,15 @@
 import {
+  ISignupRequestDto,
   Message,
   Role,
-  ISignupRequestDto,
 } from '@nestjs-angular-authentication-demo/interfaces';
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Get,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -16,6 +18,7 @@ import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Roles } from './auth/roles.decorator';
+import { EnumValidationPipe } from './shared/pipes/enum-validation.pipe';
 import { UsersService } from './users/users.service';
 
 @Controller()
@@ -39,13 +42,13 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Get('user')
-  @Roles(Role.User)
+  @Roles(Role.user)
   getUserData(): Message {
     return { message: 'User data' };
   }
 
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.admin)
   @Get('admin')
   getAdminData(): Message {
     return { message: 'Admin data' };
@@ -58,8 +61,17 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
+  // The role query variable could be path of the DTO but this way I get to showcase the custom enum validation pipe :)
   @Post('auth/signup')
-  async signup(@Body() signupRequestDto: ISignupRequestDto) {
-    return this.authService.signup(signupRequestDto);
+  async signup(
+    @Body() signupRequestDto: ISignupRequestDto,
+    @Query(
+      'role',
+      new EnumValidationPipe(Role),
+      new DefaultValuePipe(Role.user)
+    )
+    role: Role
+  ) {
+    return this.authService.signup(signupRequestDto, role);
   }
 }

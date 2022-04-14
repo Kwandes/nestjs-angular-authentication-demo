@@ -6,6 +6,7 @@ import {
   ILoginResponse,
   ISignupRequestDto,
   ISignupResponse,
+  Role,
 } from '@nestjs-angular-authentication-demo/interfaces';
 import {
   LocalStorageService,
@@ -51,10 +52,10 @@ export class AuthService {
    * @param params user credentials
    * @returns observable of the API request
    */
-  register(params: ISignupRequestDto): Observable<ISignupResponse> {
+  register(params: ISignupRequestDto, role: Role): Observable<ISignupResponse> {
     const { email, password } = params;
     return this.http.post<ISignupResponse>(
-      `${env.apiUrl}/api/auth/signup`,
+      `${env.apiUrl}/api/auth/signup?role=${role}`,
       {
         email,
         password,
