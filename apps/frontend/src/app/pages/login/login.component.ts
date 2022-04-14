@@ -1,13 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  LoginResponse,
-  Role,
-} from '@nestjs-angular-authentication-demo/interfaces';
-import {
-  LocalStorageService,
-  LocalStorageVars,
-} from '@nestjs-angular-authentication-demo/local-storage';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'nestjs-angular-authentication-demo-login',
@@ -25,7 +19,7 @@ export class LoginComponent implements OnInit {
    */
   isLoading = false;
 
-  constructor(private readonly localStorageService: LocalStorageService) {}
+  constructor(private readonly authService: AuthService) {}
 
   /**
    * Initialize the login form
@@ -53,17 +47,30 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
-    // temp timeout to imitiate an API call
-    await new Promise((f) => setTimeout(f, 1000));
-    this.isLoading = false;
-    this.localStorageService.setItem<LoginResponse>(
-      LocalStorageVars.accessTokenInfo,
-      { accessToken: email + ':' + password, role: Role.User }
-    );
-    this.alert = {
-      message: `Logged in as ${email}:${password}`,
-      type: 'info',
-    };
+    this.authService.login({ username: email, password: password }).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.alert = {
+          message: `Logged in as ${email}:${password}. Role: ${response.role}`,
+          type: 'info',
+        };
+        this.authService.saveAccessInfo({
+          accessToken: response.accessToken,
+          role: response.role,
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.isLoading = false;
+        this.alert = {
+          message:
+            err.status === 401
+              ? `Failed to log in due to invalid credentials`
+              : 'Failed to log in',
+          type: 'error',
+        };
+      },
+    });
   }
 
   /**

@@ -1,6 +1,6 @@
 import {
   IUser,
-  SignupRequestDto,
+  ISignupRequestDto,
 } from '@nestjs-angular-authentication-demo/interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -28,7 +28,7 @@ export class UsersService {
    * @param signupRequestDto information for user creation.
    * @returns created user.
    */
-  async create(signupRequestDto: SignupRequestDto): Promise<IUser> {
+  async create(signupRequestDto: ISignupRequestDto): Promise<IUser> {
     const { email, password } = signupRequestDto;
     const newUser = this.userRepo.create({ email: email, password: password });
     return this.userRepo.save(newUser);

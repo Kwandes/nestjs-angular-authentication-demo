@@ -1,6 +1,7 @@
 import {
   Message,
-  SignupRequestDto,
+  Role,
+  ISignupRequestDto,
 } from '@nestjs-angular-authentication-demo/interfaces';
 import {
   Body,
@@ -10,7 +11,6 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { Role } from '../../../../libs/interfaces/src/lib/role.enum';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
@@ -59,7 +59,7 @@ export class AppController {
   }
 
   @Post('auth/signup')
-  async signup(@Body() signupRequestDto: SignupRequestDto) {
+  async signup(@Body() signupRequestDto: ISignupRequestDto) {
     return this.authService.signup(signupRequestDto);
   }
 }

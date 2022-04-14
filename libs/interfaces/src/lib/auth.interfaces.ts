@@ -1,21 +1,21 @@
 import { Role } from './role.enum';
 
-export interface LoginRequestDto {
-  email: string;
+export interface ILoginRequestDto {
+  username: string;
   password: string;
 }
 
-export interface LoginResponse {
+export interface ILoginResponse {
   accessToken: string;
   role: Role;
 }
 
-export interface SignupRequestDto {
+export interface ISignupRequestDto {
   email: string;
   password: string;
 }
 
-export interface SignupResponse {
+export interface ISignupResponse {
   accessToken: string;
   role: Role;
 }
