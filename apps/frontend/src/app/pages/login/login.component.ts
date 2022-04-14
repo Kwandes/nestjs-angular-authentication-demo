@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ILoginResponse } from '@nestjs-angular-authentication-demo/interfaces';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
@@ -88,5 +89,9 @@ export class LoginComponent implements OnInit {
     if (this.loginEnabled()) {
       this.onSubmit();
     }
+  }
+
+  getAccessInfo(): ILoginResponse | null {
+    return this.authService.getAccessInfo();
   }
 }

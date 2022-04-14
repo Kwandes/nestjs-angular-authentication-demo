@@ -1,5 +1,8 @@
 <div class="min-width">
   <div class="full-page">
     <router-outlet></router-outlet>
+    <div id="logout-btn-wrapper" *ngIf="isLoggedIn">
+      <button class="fancy-btn" (click)="logout()">Log Out</button>
+    </div>
   </div>
 </div>

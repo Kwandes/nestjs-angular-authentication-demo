@@ -53,37 +53,6 @@ hr {
   font-size: medium;
 }
 
-.fancy-btn {
-  width: 100px;
-  height: 30px;
-  box-sizing: border-box;
-  background: none;
-  border: none;
-  outline: none;
-  color: #42d6ca;
-}
-
-.fancy-btn:hover {
-  outline: none;
-  border: 1px #42d6ca solid;
-  transition: all 0.7s ease;
-}
-
-.fancy-btn:active {
-  outline: none;
-  border: 1px purple solid;
-  transition: all 0.2s ease;
-}
-
-.fancy-btn:disabled {
-  opacity: 0.5;
-}
-
-.fancy-btn:disabled:hover,
-.fancy-btn:disabled:active {
-  border: none;
-}
-
 .input-error {
   font-size: small;
   color: crimson;
